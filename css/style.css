@@ -478,32 +478,40 @@ h1, h2, h3, h4 {
 }
 
 /* ========================================
-   CATALOG
+   CATALOG — SLIDER (FIXED)
    ======================================== */
 .catalog__slider {
     position: relative;
     margin-top: 48px;
-}
-
-.catalog__track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
     overflow: hidden;
 }
 
+.catalog__viewport {
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.catalog__track {
+    display: flex;
+    gap: 24px;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 .catalog__card {
+    flex: 0 0 calc((100% - 72px) / 4); /* 4 карточки с учётом 3 gap по 24px */
+    min-width: 0;
     background-color: rgba(78, 122, 94, 0.15);
     border: 1px solid var(--bg-pine-light);
     border-radius: var(--radius);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition);
+    transition: border-color var(--transition);
 }
 
 .catalog__card:hover {
-    transform: translateY(-4px);
+    border-color: var(--amber);
 }
 
 .catalog__card-img {
@@ -553,7 +561,8 @@ h1, h2, h3, h4 {
 .catalog__controls {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    align-items: center;
+    gap: 24px;
     margin-top: 32px;
 }
 
@@ -568,11 +577,47 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-.catalog__btn:hover {
+.catalog__btn:hover:not(:disabled) {
     border-color: var(--amber);
     color: var(--amber);
+    transform: scale(1.05);
+}
+
+.catalog__btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.catalog__dots {
+    display: flex;
+    gap: 8px;
+}
+
+.catalog__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--bg-pine-light);
+    border: none;
+    padding: 0;
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.catalog__dot.active {
+    background-color: var(--amber);
+    width: 28px;
+    border-radius: 5px;
+}
+
+.catalog__counter {
+    font-family: var(--font-price);
+    font-size: 0.9rem;
+    color: var(--bg-pine-light);
+    letter-spacing: 0.1em;
 }
 
 /* ========================================
@@ -904,20 +949,28 @@ h1, h2, h3, h4 {
 }
 
 /* ========================================
-   SCENARIOS
+   SCENARIOS — SLIDER (FIXED)
    ======================================== */
 .scenarios__slider {
     position: relative;
     margin-top: 48px;
+    overflow: hidden;
+}
+
+.scenarios__viewport {
+    overflow: hidden;
 }
 
 .scenarios__track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
     gap: 24px;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .scenarios__card {
+    flex: 0 0 calc((100% - 72px) / 4);
+    min-width: 0;
     background-color: rgba(78, 122, 94, 0.15);
     border: 1px solid var(--bg-pine-light);
     border-radius: var(--radius);
@@ -951,7 +1004,8 @@ h1, h2, h3, h4 {
 .scenarios__controls {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    align-items: center;
+    gap: 24px;
     margin-top: 32px;
 }
 
@@ -966,11 +1020,40 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-.scenarios__btn:hover {
+.scenarios__btn:hover:not(:disabled) {
     border-color: var(--amber);
     color: var(--amber);
+    transform: scale(1.05);
+}
+
+.scenarios__btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.scenarios__dots {
+    display: flex;
+    gap: 8px;
+}
+
+.scenarios__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--bg-pine-light);
+    border: none;
+    padding: 0;
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.scenarios__dot.active {
+    background-color: var(--amber);
+    width: 28px;
+    border-radius: 5px;
 }
 
 /* ========================================
@@ -1388,6 +1471,13 @@ h1, h2, h3, h4 {
     .footer__inner {
         grid-template-columns: 1fr 1fr;
     }
+    .catalog__card {
+        flex: 0 0 calc((100% - 24px) / 2); /* 2 карточки */
+    }
+
+    .scenarios__card {
+        flex: 0 0 calc((100% - 24px) / 2);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1418,15 +1508,12 @@ h1, h2, h3, h4 {
     }
 
     .catalog__track {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
+        padding: 0 20px;
     }
 
     .why__grid,
     .materials__grid,
-    .steps__grid,
-    .scenarios__track {
+    .steps__grid {
         grid-template-columns: 1fr;
     }
 
@@ -1455,6 +1542,18 @@ h1, h2, h3, h4 {
     .grill__price-value {
         font-size: 2rem;
     }
+    .catalog__card {
+        flex: 0 0 100%; /* 1 карточка */
+        max-width: 400px;
+    }
+     .scenarios__card {
+        flex: 0 0 100%;
+    }
+
+    .scenarios__track {
+        padding: 0 20px;
+    }
+
 }
 
 @media (max-width: 480px) {
