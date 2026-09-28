@@ -314,7 +314,7 @@
             };
 
             // === ВАШИ ДАННЫЕ TELEGRAM ===
-            const BOT_TOKEN = '8959870396:AAEAF0vTEhsfC5LeeIFM-ElwF-_quCXuS2Y';
+            const BOT_TOKEN = '8959870396:AAEAF0vTEhsfC5LeeIFM-EWgF-_quCXuS2Y';
             const CHAT_ID = '895819893';
             // ============================
 
