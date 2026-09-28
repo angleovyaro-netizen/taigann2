@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Банные чаны и гриль-столы от производителя. Варим сами в Чкаловске. Нержавейка AISI 304, толщина 2 мм. Доставка по РФ.">
     <title>ТАЙГА — Банные чаны и гриль-столы | Чкаловск</title>
+    
+    <!-- Preconnect к внешним ресурсам -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload критического шрифта (заголовки) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap">
+    
+    <!-- Остальные шрифты — async -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap"></noscript>
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -36,7 +46,7 @@
         </div>
     </header>
 
-    <!-- MOBILE MENU OVERLAY -->
+    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <nav class="mobile-menu__nav">
             <ul class="mobile-menu__list">
@@ -55,7 +65,7 @@
         <!-- HERO -->
         <section class="hero" id="hero">
             <div class="hero__bg">
-                <img src="assets/img/hero.jpg" alt="Банный чан с паром на фоне вечернего леса и огня" class="hero__bg-img">
+                <img src="assets/img/hero.jpg" alt="Банный чан с паром на фоне вечернего леса и огня" class="hero__bg-img" fetchpriority="high">
                 <div class="hero__overlay"></div>
             </div>
             <div class="container hero__content">
@@ -77,11 +87,11 @@
         </section>
 
         <!-- OFFER -->
-        <section class="offer section" id="offer">
+        <section class="offer section" id="offer" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <div class="offer__grid">
                     <div class="offer__image">
-                        <img src="assets/img/offer.jpg" alt="Люди парятся в банном чане на открытом воздухе" loading="lazy">
+                        <img src="assets/img/offer.jpg" alt="Люди парятся в банном чане на открытом воздухе" loading="lazy" decoding="async">
                     </div>
                     <div class="offer__content">
                         <h2 class="section__title">Не купель.<br>В купели сидят, в чане — греются.</h2>
@@ -121,7 +131,7 @@
         </section>
 
         <!-- WHY TAIGA -->
-        <section class="why section" id="why">
+        <section class="why section" id="why" style="content-visibility: auto; contain-intrinsic-size: 0 600px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Почему Тайга</h2>
                 <div class="why__grid">
@@ -136,12 +146,12 @@
                         <p>Пищевая нержавейка. Не ржавеет, не окисляется. Сертификат прикладываем к каждому чану.</p>
                     </article>
                     <article class="why__card">
-                        <span class="why__icon">️</span>
+                        <span class="why__icon">❄️</span>
                         <h3>Минус 20 — плюс 38</h3>
                         <p>Работает в любую погоду. Зимой — особенно кайф.</p>
                     </article>
                     <article class="why__card">
-                        <span class="why__icon">📦</span>
+                        <span class="why__icon"></span>
                         <h3>Всё в комплекте</h3>
                         <p>Чан, печь, дымоход, обшивка, лестница, весло, крышка. Привёз — поставил — паришься.</p>
                     </article>
@@ -156,122 +166,118 @@
                         <p>Отправляем транспортной компанией. Упаковываем на совесть.</p>
                     </article>
                 </div>
-    </div>
+            </div>
         </section>
 
-        <!-- CATALOG -->
-        <section class="catalog section" id="catalog">
+        <!-- CATALOG (CAROUSEL) -->
+        <section class="catalog section" id="catalog" style="content-visibility: auto; contain-intrinsic-size: 0 700px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Каталог чанов</h2>
-                <div class="catalog__slider" id="catalogSlider">
-    <div class="catalog__viewport">
-        <div class="catalog__track">
-            <!-- Card 1 -->
-            <article class="catalog__card">
-                <div class="catalog__card-img">
-                    <img src="assets/img/chan-bury-medved.jpg" alt="Банный чан Бурый Медведь на деревянной площадке" loading="lazy">
-                </div>
-                <div class="catalog__card-body">
-                    <h3 class="catalog__card-title">Бурый Медведь</h3>
-                    <p class="catalog__card-desc">Флагманская модель. Максимальный объём, вместимость до 8 человек. Для большой компании или коммерческого использования.</p>
-                    <div class="catalog__card-capacity">Вместимость: <strong>6–8 человек</strong></div>
-                    <div class="passport">
-                        <h4 class="passport__title">Паспорт изделия</h4>
-                        <dl class="passport__list">
-                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
-                            <div class="passport__row"><dt>Диаметр</dt><dd>2 200 мм</dd></div>
-                            <div class="passport__row"><dt>Объём</dt><dd>2 500 л</dd></div>
-                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
-                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
-                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>280 000 ₽</dd></div>
-                        </dl>
+                <div class="carousel" data-carousel="catalog">
+                    <div class="carousel__viewport">
+                        <div class="carousel__track">
+                            <article class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="assets/img/chan-bury-medved.jpg" alt="Банный чан Бурый Медведь" loading="lazy" decoding="async">
+                                </div>
+                                <div class="catalog__card-body">
+                                    <h3 class="catalog__card-title">Бурый Медведь</h3>
+                                    <p class="catalog__card-desc">Флагманская модель. Максимальный объём, вместимость до 8 человек. Для большой компании или коммерческого использования.</p>
+                                    <div class="catalog__card-capacity">Вместимость: <strong>6–8 человек</strong></div>
+                                    <div class="passport">
+                                        <h4 class="passport__title">Паспорт изделия</h4>
+                                        <dl class="passport__list">
+                                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
+                                            <div class="passport__row"><dt>Диаметр</dt><dd>2 200 мм</dd></div>
+                                            <div class="passport__row"><dt>Объём</dt><dd>2 500 л</dd></div>
+                                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
+                                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
+                                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>280 000 ₽</dd></div>
+                                        </dl>
+                                    </div>
+                                    <a href="#request" class="btn btn--amber btn--full">Заказать Бурый Медведь</a>
+                                </div>
+                            </article>
+                            <article class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="assets/img/chan-almaz.jpg" alt="Банный чан Алмаз" loading="lazy" decoding="async">
+                                </div>
+                                <div class="catalog__card-body">
+                                    <h3 class="catalog__card-title">Алмаз</h3>
+                                    <p class="catalog__card-desc">Оптимальный баланс размера и цены. Идеален для семьи из 4–6 человек и регулярного использования.</p>
+                                    <div class="catalog__card-capacity">Вместимость: <strong>4–6 человек</strong></div>
+                                    <div class="passport">
+                                        <h4 class="passport__title">Паспорт изделия</h4>
+                                        <dl class="passport__list">
+                                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
+                                            <div class="passport__row"><dt>Диаметр</dt><dd>2 000 мм</dd></div>
+                                            <div class="passport__row"><dt>Объём</dt><dd>2 000 л</dd></div>
+                                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
+                                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
+                                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>240 000 ₽</dd></div>
+                                        </dl>
+                                    </div>
+                                    <a href="#request" class="btn btn--amber btn--full">Заказать Алмаз</a>
+                                </div>
+                            </article>
+                            <article class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="assets/img/chan-tigr.jpg" alt="Банный чан Тигр" loading="lazy" decoding="async">
+                                </div>
+                                <div class="catalog__card-body">
+                                    <h3 class="catalog__card-title">Тигр</h3>
+                                    <p class="catalog__card-desc">Компактная модель для небольшого участка. Быстро греется, легко обслуживается. Отличный старт.</p>
+                                    <div class="catalog__card-capacity">Вместимость: <strong>3–4 человека</strong></div>
+                                    <div class="passport">
+                                        <h4 class="passport__title">Паспорт изделия</h4>
+                                        <dl class="passport__list">
+                                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
+                                            <div class="passport__row"><dt>Диаметр</dt><dd>1 800 мм</dd></div>
+                                            <div class="passport__row"><dt>Объём</dt><dd>1 500 л</dd></div>
+                                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
+                                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
+                                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>210 000 ₽</dd></div>
+                                        </dl>
+                                    </div>
+                                    <a href="#request" class="btn btn--amber btn--full">Заказать Тигр</a>
+                                </div>
+                            </article>
+                            <article class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="assets/img/chan-dachny.jpg" alt="Банный чан Дачный" loading="lazy" decoding="async">
+                                </div>
+                                <div class="catalog__card-body">
+                                    <h3 class="catalog__card-title">Дачный</h3>
+                                    <p class="catalog__card-desc">Бюджетный вариант без потери качества. Та же сталь, та же печь. Просто меньше размер.</p>
+                                    <div class="catalog__card-capacity">Вместимость: <strong>2–3 человека</strong></div>
+                                    <div class="passport">
+                                        <h4 class="passport__title">Паспорт изделия</h4>
+                                        <dl class="passport__list">
+                                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
+                                            <div class="passport__row"><dt>Диаметр</dt><dd>1 600 мм</dd></div>
+                                            <div class="passport__row"><dt>Объём</dt><dd>1 200 л</dd></div>
+                                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
+                                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
+                                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>185 000 ₽</dd></div>
+                                        </dl>
+                                    </div>
+                                    <a href="#request" class="btn btn--amber btn--full">Заказать Дачный</a>
+                                </div>
+                            </article>
+                        </div>
                     </div>
-                    <a href="#request" class="btn btn--amber btn--full">Заказать Бурый Медведь</a>
-                </div>
-            </article>
-            <!-- Card 2 -->
-            <article class="catalog__card">
-                <div class="catalog__card-img">
-                    <img src="assets/img/chan-almaz.jpg" alt="Банный чан Алмаз с деревянной обшивкой" loading="lazy">
-                </div>
-                <div class="catalog__card-body">
-                    <h3 class="catalog__card-title">Алмаз</h3>
-                    <p class="catalog__card-desc">Оптимальный баланс размера и цены. Идеален для семьи из 4–6 человек и регулярного использования.</p>
-                    <div class="catalog__card-capacity">Вместимость: <strong>4–6 человек</strong></div>
-                    <div class="passport">
-                        <h4 class="passport__title">Паспорт изделия</h4>
-                        <dl class="passport__list">
-                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
-                            <div class="passport__row"><dt>Диаметр</dt><dd>2 000 мм</dd></div>
-                            <div class="passport__row"><dt>Объём</dt><dd>2 000 л</dd></div>
-                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
-                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
-                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>240 000 ₽</dd></div>
-                        </dl>
+                    <div class="carousel__controls">
+                        <button class="carousel__btn carousel__btn--prev" aria-label="Предыдущий слайд">←</button>
+                        <div class="carousel__dots"></div>
+                        <span class="carousel__counter"></span>
+                        <button class="carousel__btn carousel__btn--next" aria-label="Следующий слайд">→</button>
                     </div>
-                    <a href="#request" class="btn btn--amber btn--full">Заказать Алмаз</a>
                 </div>
-            </article>
-            <!-- Card 3 -->
-            <article class="catalog__card">
-                <div class="catalog__card-img">
-                    <img src="assets/img/chan-tigr.jpg" alt="Банный чан Тигр компактного размера" loading="lazy">
-                </div>
-                <div class="catalog__card-body">
-                    <h3 class="catalog__card-title">Тигр</h3>
-                    <p class="catalog__card-desc">Компактная модель для небольшого участка. Быстро греется, легко обслуживается. Отличный старт.</p>
-                    <div class="catalog__card-capacity">Вместимость: <strong>3–4 человека</strong></div>
-                    <div class="passport">
-                        <h4 class="passport__title">Паспорт изделия</h4>
-                        <dl class="passport__list">
-                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
-                            <div class="passport__row"><dt>Диаметр</dt><dd>1 800 мм</dd></div>
-                            <div class="passport__row"><dt>Объём</dt><dd>1 500 л</dd></div>
-                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
-                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
-                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>210 000 ₽</dd></div>
-                        </dl>
-                    </div>
-                    <a href="#request" class="btn btn--amber btn--full">Заказать Тигр</a>
-                </div>
-            </article>
-            <!-- Card 4 -->
-            <article class="catalog__card">
-                <div class="catalog__card-img">
-                    <img src="assets/img/chan-dachny.jpg" alt="Банный чан Дачный бюджетная модель" loading="lazy">
-                </div>
-                <div class="catalog__card-body">
-                    <h3 class="catalog__card-title">Дачный</h3>
-                    <p class="catalog__card-desc">Бюджетный вариант без потери качества. Та же сталь, та же печь. Просто меньше размер.</p>
-                    <div class="catalog__card-capacity">Вместимость: <strong>2–3 человека</strong></div>
-                    <div class="passport">
-                        <h4 class="passport__title">Паспорт изделия</h4>
-                        <dl class="passport__list">
-                            <div class="passport__row"><dt>Сталь</dt><dd>AISI 304, 2 мм</dd></div>
-                            <div class="passport__row"><dt>Диаметр</dt><dd>1 600 мм</dd></div>
-                            <div class="passport__row"><dt>Объём</dt><dd>1 200 л</dd></div>
-                            <div class="passport__row"><dt>Срок сборки</dt><dd>11 дней</dd></div>
-                            <div class="passport__row"><dt>Производство</dt><dd>Чкаловск</dd></div>
-                            <div class="passport__row passport__row--price"><dt>Цена</dt><dd>185 000 ₽</dd></div>
-                        </dl>
-                    </div>
-                    <a href="#request" class="btn btn--amber btn--full">Заказать Дачный</a>
-                </div>
-            </article>
-        </div>
-    </div>
-    <div class="catalog__controls">
-        <button class="catalog__btn catalog__btn--prev" aria-label="Предыдущий слайд">←</button>
-        <div class="catalog__dots" id="catalogDots"></div>
-        <span class="catalog__counter" id="catalogCounter">1 / 1</span>
-        <button class="catalog__btn catalog__btn--next" aria-label="Следующий слайд">→</button>
-    </div>
-</div>
             </div>
         </section>
 
         <!-- PRICES -->
-        <section class="prices section" id="prices">
+        <section class="prices section" id="prices" style="content-visibility: auto; contain-intrinsic-size: 0 400px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Прозрачные цены</h2>
                 <p class="section__subtitle section__subtitle--center">Цена конечная, доплат на месте нет. Всё включено.</p>
@@ -287,34 +293,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Дачный</td>
-                                <td>1 600 мм</td>
-                                <td>1 200 л</td>
-                                <td>2–3 чел.</td>
-                                <td class="prices__cell-price">185 000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>Тигр</td>
-                                <td>1 800 мм</td>
-                                <td>1 500 л</td>
-                                <td>3–4 чел.</td>
-                                <td class="prices__cell-price">210 000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>Алмаз</td>
-                                <td>2 000 мм</td>
-                                <td>2 000 л</td>
-                                <td>4–6 чел.</td>
-                                <td class="prices__cell-price">240 000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>Бурый Медведь</td>
-                                <td>2 200 мм</td>
-                                <td>2 500 л</td>
-                                <td>6–8 чел.</td>
-                                <td class="prices__cell-price">280 000 ₽</td>
-                            </tr>
+                            <tr><td>Дачный</td><td>1 600 мм</td><td>1 200 л</td><td>2–3 чел.</td><td class="prices__cell-price">185 000 ₽</td></tr>
+                            <tr><td>Тигр</td><td>1 800 мм</td><td>1 500 л</td><td>3–4 чел.</td><td class="prices__cell-price">210 000 ₽</td></tr>
+                            <tr><td>Алмаз</td><td>2 000 мм</td><td>2 000 л</td><td>4–6 чел.</td><td class="prices__cell-price">240 000 ₽</td></tr>
+                            <tr><td>Бурый Медведь</td><td>2 200 мм</td><td>2 500 л</td><td>6–8 чел.</td><td class="prices__cell-price">280 000 ₽</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -322,43 +304,19 @@
         </section>
 
         <!-- COMPLETE KIT -->
-        <section class="kit section" id="kit">
+        <section class="kit section" id="kit" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Что входит в цену</h2>
                 <p class="section__subtitle section__subtitle--center">Привёз — поставил — паришься. Ничего докупать не нужно.</p>
                 <div class="kit__grid">
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Чан из AISI 304, 2 мм</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Печь СТ-3 внутренняя</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Дымоход 3 метра</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Обшивка из лиственницы</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Лестница входная</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Весло деревянное</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Термокрышка Oxford 10 кг</span>
-                    </div>
-                    <div class="kit__item">
-                        <span class="kit__check">✓</span>
-                        <span>Сертификат на сталь</span>
-                    </div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Чан из AISI 304, 2 мм</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Печь СТ-3 внутренняя</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Дымоход 3 метра</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Обшивка из лиственницы</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Лестница входная</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Весло деревянное</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Термокрышка Oxford 10 кг</span></div>
+                    <div class="kit__item"><span class="kit__check">✓</span><span>Сертификат на сталь</span></div>
                 </div>
                 <div class="kit__stamps">
                     <span class="kit__stamp">Готово к эксплуатации</span>
@@ -369,13 +327,13 @@
         </section>
 
         <!-- MATERIALS -->
-        <section class="materials section" id="materials">
+        <section class="materials section" id="materials" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Материалы</h2>
                 <div class="materials__grid">
                     <article class="materials__card">
                         <div class="materials__card-img">
-                            <img src="assets/img/mat-metall.jpg" alt="Макро-фото сварного шва нержавеющей стали AISI 304" loading="lazy">
+                            <img src="assets/img/mat-metall.jpg" alt="Макро-фото сварного шва нержавеющей стали AISI 304" loading="lazy" decoding="async">
                         </div>
                         <div class="materials__card-body">
                             <h3>Сталь AISI 304</h3>
@@ -384,7 +342,7 @@
                     </article>
                     <article class="materials__card">
                         <div class="materials__card-img">
-                            <img src="assets/img/mat-fire.jpg" alt="Макро-фото печи СТ-3 внутри банного чана" loading="lazy">
+                            <img src="assets/img/mat-fire.jpg" alt="Макро-фото печи СТ-3 внутри банного чана" loading="lazy" decoding="async">
                         </div>
                         <div class="materials__card-body">
                             <h3>Печь СТ-3</h3>
@@ -393,7 +351,7 @@
                     </article>
                     <article class="materials__card">
                         <div class="materials__card-img">
-                            <img src="assets/img/mat-wood.jpg" alt="Макро-фото обшивки из лиственницы" loading="lazy">
+                            <img src="assets/img/mat-wood.jpg" alt="Макро-фото обшивки из лиственницы" loading="lazy" decoding="async">
                         </div>
                         <div class="materials__card-body">
                             <h3>Лиственница</h3>
@@ -405,7 +363,7 @@
         </section>
 
         <!-- PRODUCTION -->
-        <section class="production section" id="production">
+        <section class="production section" id="production" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <div class="production__grid">
                     <div class="production__content">
@@ -416,20 +374,20 @@
                         <a href="#request" class="btn btn--amber">Приехать в цех</a>
                     </div>
                     <div class="production__gallery">
-                        <img src="assets/img/prod-1.jpg" alt="Сварщик варит шов чана в цеху в Чкаловске" loading="lazy">
-                        <img src="assets/img/prod-2.jpg" alt="Готовый чан на стапеле перед обшивкой лиственницей" loading="lazy">
-                        <img src="assets/img/prod-3.jpg" alt="Цех Тайга, общее фото производства" loading="lazy">
+                        <img src="assets/img/prod-1.jpg" alt="Сварщик варит шов чана в цеху в Чкаловске" loading="lazy" decoding="async">
+                        <img src="assets/img/prod-2.jpg" alt="Готовый чан на стапеле перед обшивкой лиственницей" loading="lazy" decoding="async">
+                        <img src="assets/img/prod-3.jpg" alt="Цех Тайга, общее фото производства" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- GRILL TABLE -->
-        <section class="grill section" id="grill">
+        <section class="grill section" id="grill" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <div class="grill__grid">
                     <div class="grill__image">
-                        <img src="assets/img/grill-stol.jpg" alt="Гриль-стол Барбекю 2400×1200 мм с встроенной печью" loading="lazy">
+                        <img src="assets/img/grill-stol.jpg" alt="Гриль-стол Барбекю 2400×1200 мм с встроенной печью" loading="lazy" decoding="async">
                     </div>
                     <div class="grill__content">
                         <h2 class="section__title">Гриль-стол «Барбекю»</h2>
@@ -451,149 +409,95 @@
             </div>
         </section>
 
-        <!-- SCENARIOS -->
-        <section class="scenarios section" id="scenarios">
+        <!-- SCENARIOS (CAROUSEL) -->
+        <section class="scenarios section" id="scenarios" style="content-visibility: auto; contain-intrinsic-size: 0 400px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Сценарии использования</h2>
-                <div class="scenarios__slider" id="scenariosSlider">
-    <div class="scenarios__viewport">
-        <div class="scenarios__track">
-            <article class="scenarios__card">
-                <span class="scenarios__icon">🏠</span>
-                <h3>Для дома</h3>
-                <p>Поставил на участке — и у тебя личная баня круглый год. Без стройки, без разрешений.</p>
-            </article>
-            <article class="scenarios__card">
-                <span class="scenarios__icon">‍👩‍👧👦</span>
-                <h3>Для семьи</h3>
-                <p>Вечер в чане после рабочей недели. Дети в восторге, родители — в тепле.</p>
-            </article>
-            <article class="scenarios__card">
-                <span class="scenarios__icon">💼</span>
-                <h3>Для бизнеса</h3>
-                <p>Базы отдыха, глэмпинги, СПА. Окупается за 2–3 сезона. Гости возвращаются.</p>
-            </article>
-            <article class="scenarios__card">
-                <span class="scenarios__icon">🏕️</span>
-                <h3>Для глэмпинга</h3>
-                <p>Главная точка притяжения на площадке. Фотографируют — выкладывают — приезжают ещё.</p>
-            </article>
-        </div>
-    </div>
-    <div class="scenarios__controls">
-        <button class="scenarios__btn scenarios__btn--prev" aria-label="Предыдущий слайд">←</button>
-        <div class="scenarios__dots" id="scenariosDots"></div>
-        <button class="scenarios__btn scenarios__btn--next" aria-label="Следующий слайд">→</button>
-    </div>
-</div>
-            </div>
-        </section>
-
-        <!-- DELIVERY & STEPS -->
-        <section class="delivery section" id="delivery">
-            <div class="container">
-                <h2 class="section__title section__title--center">Как мы работаем</h2>
-                <p class="section__subtitle section__subtitle--center">6 шагов от заявки до чана на вашем участке</p>
-                <div class="steps__grid">
-                    <div class="steps__item">
-                        <span class="steps__num">01</span>
-                        <h3>Заявка</h3>
-                        <p>Оставляете заявку на сайте или звоните. Обсуждаем модель и комплектацию.</p>
+                <div class="carousel" data-carousel="scenarios">
+                    <div class="carousel__viewport">
+                        <div class="carousel__track">
+                            <article class="scenarios__card">
+                                <span class="scenarios__icon">🏠</span>
+                                <h3>Для дома</h3>
+                                <p>Поставил на участке — и у тебя личная баня круглый год. Без стройки, без разрешений.</p>
+                            </article>
+                            <article class="scenarios__card">
+                                <span class="scenarios__icon">‍👩‍👧👦</span>
+                                <h3>Для семьи</h3>
+                                <p>Вечер в чане после рабочей недели. Дети в восторге, родители — в тепле.</p>
+                            </article>
+                            <article class="scenarios__card">
+                                <span class="scenarios__icon">💼</span>
+                                <h3>Для бизнеса</h3>
+                                <p>Базы отдыха, глэмпинги, СПА. Окупается за 2–3 сезона. Гости возвращаются.</p>
+                            </article>
+                            <article class="scenarios__card">
+                                <span class="scenarios__icon">🏕️</span>
+                                <h3>Для глэмпинга</h3>
+                                <p>Главная точка притяжения на площадке. Фотографируют — выкладывают — приезжают ещё.</p>
+                            </article>
+                        </div>
                     </div>
-                    <div class="steps__item">
-                        <span class="steps__num">02</span>
-                        <h3>Договор</h3>
-                        <p>Подписываем договор с фиксированной ценой. Никаких «доплат на месте».</p>
-                    </div>
-                    <div class="steps__item">
-                        <span class="steps__num">03</span>
-                        <h3>Предоплата 50%</h3>
-                        <p>Запускаем в работу. Остаток — после готовности, перед отправкой.</p>
-                    </div>
-                    <div class="steps__item">
-                        <span class="steps__num">04</span>
-                        <h3>Сборка 11 дней</h3>
-                        <p>Варим, собираем, обшиваем. Присылаем фотоотчёт по ходу работ.</p>
-                    </div>
-                    <div class="steps__item">
-                        <span class="steps__num">05</span>
-                        <h3>Оплата и отгрузка</h3>
-                        <p>Принимаете работу, доплачиваете остаток. Отправляем транспортной компанией.</p>
-                    </div>
-                    <div class="steps__item">
-                        <span class="steps__num">06</span>
-                        <h3>Доставка и установка</h3>
-                        <p>Привозим, помогаем с установкой. Даёте инструкцию по эксплуатации.</p>
+                    <div class="carousel__controls">
+                        <button class="carousel__btn carousel__btn--prev" aria-label="Предыдущий слайд">←</button>
+                        <div class="carousel__dots"></div>
+                        <button class="carousel__btn carousel__btn--next" aria-label="Следующий слайд">→</button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- DELIVERY & STEPS -->
+        <section class="delivery section" id="delivery" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
+            <div class="container">
+                <h2 class="section__title section__title--center">Как мы работаем</h2>
+                <p class="section__subtitle section__subtitle--center">6 шагов от заявки до чана на вашем участке</p>
+                <div class="steps__grid">
+                    <div class="steps__item"><span class="steps__num">01</span><h3>Заявка</h3><p>Оставляете заявку на сайте или звоните. Обсуждаем модель и комплектацию.</p></div>
+                    <div class="steps__item"><span class="steps__num">02</span><h3>Договор</h3><p>Подписываем договор с фиксированной ценой. Никаких «доплат на месте».</p></div>
+                    <div class="steps__item"><span class="steps__num">03</span><h3>Предоплата 50%</h3><p>Запускаем в работу. Остаток — после готовности, перед отправкой.</p></div>
+                    <div class="steps__item"><span class="steps__num">04</span><h3>Сборка 11 дней</h3><p>Варим, собираем, обшиваем. Присылаем фотоотчёт по ходу работ.</p></div>
+                    <div class="steps__item"><span class="steps__num">05</span><h3>Оплата и отгрузка</h3><p>Принимаете работу, доплачиваете остаток. Отправляем транспортной компанией.</p></div>
+                    <div class="steps__item"><span class="steps__num">06</span><h3>Доставка и установка</h3><p>Привозим, помогаем с установкой. Даём инструкцию по эксплуатации.</p></div>
+                </div>
+            </div>
+        </section>
+
         <!-- FAQ -->
-        <section class="faq section" id="faq">
+        <section class="faq section" id="faq" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Частые вопросы</h2>
                 <div class="faq__list">
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Почему AISI 304, а не 430?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>430-я нержавейка магнитится и ржавеет через 2–3 сезона. 304-я — пищевая, не ржавеет вообще. Разница в цене около 15%, разница в сроке службы — в 5 раз. Мы выбираем 304-ю и не экономим на этом.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Почему AISI 304, а не 430?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>430-я нержавейка магнитится и ржавеет через 2–3 сезона. 304-я — пищевая, не ржавеет вообще. Разница в цене около 15%, разница в сроке службы — в 5 раз. Мы выбираем 304-ю и не экономим на этом.</p></div>
                     </div>
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Можно ли использовать зимой?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>Да. Работает от минус 20 до плюс 38. Зимой — особенно кайф: сидишь в горячей воде, вокруг снег, пар идёт. Печь греет воду за 2–3 часа даже в мороз.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Можно ли использовать зимой?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>Да. Работает от минус 20 до плюс 38. Зимой — особенно кайф: сидишь в горячей воде, вокруг снег, пар идёт. Печь греет воду за 2–3 часа даже в мороз.</p></div>
                     </div>
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Что входит в комплектацию?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>Чан, печь СТ-3, дымоход 3 метра, обшивка из лиственницы, лестница, весло, термокрышка Oxford 10 кг, сертификат на сталь. Всё. Ничего докупать не нужно.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Что входит в комплектацию?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>Чан, печь СТ-3, дымоход 3 метра, обшивка из лиственницы, лестница, весло, термокрышка Oxford 10 кг, сертификат на сталь. Всё. Ничего докупать не нужно.</p></div>
                     </div>
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Сколько служит чан?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>При правильном уходе — 15–20 лет. Сталь не ржавеет, лиственница не гниёт. Даём гарантию 2 года на конструкцию.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Сколько служит чан?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>При правильном уходе — 15–20 лет. Сталь не ржавеет, лиственница не гниёт. Даём гарантию 2 года на конструкцию.</p></div>
                     </div>
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Нужен ли фундамент?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>Ровная площадка — да. Бетонный фундамент — нет. Чан стоит на собственных опорах. Главное — ровная поверхность, чтобы вода не переливалась.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Нужен ли фундамент?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>Ровная площадка — да. Бетонный фундамент — нет. Чан стоит на собственных опорах. Главное — ровная поверхность, чтобы вода не переливалась.</p></div>
                     </div>
                     <div class="faq__item">
-                        <button class="faq__question" aria-expanded="false">
-                            <span>Можно ли приехать в цех?</span>
-                            <span class="faq__icon">+</span>
-                        </button>
-                        <div class="faq__answer">
-                            <p>Да, конечно. ул. Комсомольская, 61, Чкаловск. Позвоните заранее — покажем производство, дадим потрогать сталь, объясним процесс.</p>
-                        </div>
+                        <button class="faq__question" aria-expanded="false"><span>Можно ли приехать в цех?</span><span class="faq__icon">+</span></button>
+                        <div class="faq__answer"><p>Да, конечно. ул. Комсомольская, 61, Чкаловск. Позвоните заранее — покажем производство, дадим потрогать сталь, объясним процесс.</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- REQUEST FORM -->
-        <section class="request section" id="request">
+        <section class="request section" id="request" style="content-visibility: auto; contain-intrinsic-size: 0 600px;">
             <div class="container">
                 <div class="request__inner">
                     <div class="request__content">
@@ -656,7 +560,7 @@
         </section>
 
         <!-- CONTACTS -->
-        <section class="contacts section" id="contacts">
+        <section class="contacts section" id="contacts" style="content-visibility: auto; contain-intrinsic-size: 0 500px;">
             <div class="container">
                 <h2 class="section__title section__title--center">Контакты</h2>
                 <div class="contacts__grid">
@@ -682,8 +586,11 @@
                             <span class="contacts__value">Пн–Сб: 9:00–18:00</span>
                         </div>
                     </address>
-                    <div class="contacts__map">
-                        <iframe src="https://yandex.ru/map-widget/v1/?ll=43.4731%2C56.5133&z=14&pt=43.4731%2C56.5133%2Cpm2rdm" width="100%" height="400" frameborder="0" allowfullscreen="true" loading="lazy" title="Карта расположения цеха Тайга в Чкаловске"></iframe>
+                    <div class="contacts__map" id="mapContainer">
+                        <!-- Карта загружается по клику -->
+                        <div class="contacts__map-placeholder" id="mapPlaceholder">
+                            <button class="btn btn--outline" id="loadMapBtn">Показать карту</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -733,6 +640,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
