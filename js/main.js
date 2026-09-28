@@ -1,6 +1,6 @@
 /**
  * ТАЙГА — Main JavaScript
- * Vanilla JS. Карусель на translateX + фиксированная ширина карточек.
+ * Vanilla JS. Карусель на translateX + фиксированная ширина карточек + Telegram отправка.
  */
 (function () {
     'use strict';
@@ -9,9 +9,11 @@
     // HEADER SCROLL
     // ========================================
     const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('header--scrolled', window.pageYOffset > 50);
-    }, { passive: true });
+    if (header) {
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('header--scrolled', window.pageYOffset > 50);
+        }, { passive: true });
+    }
 
     // ========================================
     // MOBILE MENU
@@ -19,32 +21,46 @@
     const burger = document.getElementById('burger');
     const mobileMenu = document.getElementById('mobileMenu');
 
-    function toggleMenu() {
-        const active = burger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        burger.setAttribute('aria-expanded', active);
-        document.body.style.overflow = active ? 'hidden' : '';
-    }
+    if (burger && mobileMenu) {
+        function toggleMenu() {
+            const active = burger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            burger.setAttribute('aria-expanded', active);
+            document.body.style.overflow = active ? 'hidden' : '';
+        }
 
-    function closeMenu() {
-        burger.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-    }
+        function closeMenu() {
+            burger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            burger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
 
-    burger.addEventListener('click', toggleMenu);
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+        burger.addEventListener('click', toggleMenu);
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
+        });
+    }
 
     // ========================================
     // SMOOTH SCROLL
     // ========================================
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Закрыть мобильное меню при клике на ссылку
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    burger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
             }
         });
     });
@@ -167,14 +183,12 @@
             if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
             if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
 
-            // Клавиатура
             document.addEventListener('keydown', (e) => {
                 if (!this.inView()) return;
                 if (e.key === 'ArrowLeft') this.prev();
                 if (e.key === 'ArrowRight') this.next();
             });
 
-            // Свайп
             let sx = 0, sy = 0;
             this.track.addEventListener('touchstart', e => {
                 sx = e.touches[0].clientX;
@@ -189,7 +203,6 @@
                 }
             }, { passive: true });
 
-            // Колёсико мыши — только над каруселью
             let wheelTimer;
             this.root.addEventListener('wheel', (e) => {
                 if (!this.inView()) return;
@@ -208,7 +221,6 @@
         }
     }
 
-    // Инициализация всех каруселей
     document.querySelectorAll('[data-carousel]').forEach(root => {
         new Carousel(root);
     });
@@ -232,75 +244,131 @@
     });
 
     // ========================================
-    // FORM
+    // FORM & TELEGRAM SUBMISSION
     // ========================================
     const form = document.getElementById('requestForm');
-    const nameInput = document.getElementById('name');
-    const phoneInput = document.getElementById('phone');
-    const formSuccess = document.getElementById('formSuccess');
+    if (form) {
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const formSuccess = document.getElementById('formSuccess');
 
-    phoneInput.addEventListener('input', function (e) {
-        let v = e.target.value.replace(/\D/g, '');
-        if (v.length > 0) {
-            if (v[0] === '7' || v[0] === '8') v = v.substring(1);
-            let f = '+7';
-            if (v.length > 0) f += ' (' + v.substring(0, 3);
-            if (v.length >= 3) f += ') ' + v.substring(3, 6);
-            if (v.length >= 6) f += '-' + v.substring(6, 8);
-            if (v.length >= 8) f += '-' + v.substring(8, 10);
-            e.target.value = f;
-        }
-    });
-
-    nameInput.addEventListener('blur', () => {
-        if (nameInput.value && nameInput.value.trim().length < 2) nameInput.classList.add('error');
-        else nameInput.classList.remove('error');
-    });
-
-    phoneInput.addEventListener('blur', () => {
-        if (phoneInput.value && phoneInput.value.replace(/\D/g, '').length < 11) phoneInput.classList.add('error');
-        else phoneInput.classList.remove('error');
-    });
-
-    nameInput.addEventListener('input', () => nameInput.classList.remove('error'));
-    phoneInput.addEventListener('input', () => phoneInput.classList.remove('error'));
-
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        let ok = true;
-        if (nameInput.value.trim().length < 2) { nameInput.classList.add('error'); ok = false; }
-        if (phoneInput.value.replace(/\D/g, '').length < 11) { phoneInput.classList.add('error'); ok = false; }
-        if (!ok) return;
-
-        console.log('📤 Заявка:', {
-            name: nameInput.value,
-            phone: phoneInput.value,
-            city: document.getElementById('city').value,
-            people: document.getElementById('people').value,
-            model: document.getElementById('model').value,
-            comment: document.getElementById('comment').value
+        // Маска телефона
+        phoneInput.addEventListener('input', function (e) {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length > 0) {
+                if (v[0] === '7' || v[0] === '8') v = v.substring(1);
+                let f = '+7';
+                if (v.length > 0) f += ' (' + v.substring(0, 3);
+                if (v.length >= 3) f += ') ' + v.substring(3, 6);
+                if (v.length >= 6) f += '-' + v.substring(6, 8);
+                if (v.length >= 8) f += '-' + v.substring(8, 10);
+                e.target.value = f;
+            }
         });
 
-        formSuccess.classList.add('active');
-        form.reset();
-        setTimeout(() => formSuccess.classList.remove('active'), 5000);
-    });
+        nameInput.addEventListener('blur', () => {
+            if (nameInput.value && nameInput.value.trim().length < 2) nameInput.classList.add('error');
+            else nameInput.classList.remove('error');
+        });
 
-    // ... (здесь идет весь предыдущий код: форма, аккордеон и т.д.)
+        phoneInput.addEventListener('blur', () => {
+            if (phoneInput.value && phoneInput.value.replace(/\D/g, '').length < 11) phoneInput.classList.add('error');
+            else phoneInput.classList.remove('error');
+        });
 
-    // ESC — закрыть мобильное меню
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
-    });
+        nameInput.addEventListener('input', () => nameInput.classList.remove('error'));
+        phoneInput.addEventListener('input', () => phoneInput.classList.remove('error'));
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            let ok = true;
+            if (nameInput.value.trim().length < 2) { 
+                nameInput.classList.add('error'); 
+                ok = false; 
+            } else {
+                nameInput.classList.remove('error');
+            }
+            
+            if (phoneInput.value.replace(/\D/g, '').length < 11) { 
+                phoneInput.classList.add('error'); 
+                ok = false; 
+            } else {
+                phoneInput.classList.remove('error');
+            }
+            
+            if (!ok) return;
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                name: nameInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                city: document.getElementById('city').value.trim() || 'Не указан',
+                people: document.getElementById('people').value || 'Не выбрано',
+                model: document.getElementById('model').value || 'Не выбрана',
+                comment: document.getElementById('comment').value.trim() || 'Нет'
+            };
+
+            // === ВАШИ ДАННЫЕ TELEGRAM ===
+            const BOT_TOKEN = '8959870396:AAEAF0vTEhsfC5LeeIFM-ElwF-_quCXuS2Y';
+            const CHAT_ID = '895819893';
+            // ============================
+
+            const message = `
+🔥 <b>Новая заявка с сайта ТАЙГА</b>
+
+👤 <b>Имя:</b> ${formData.name}
+📞 <b>Телефон:</b> ${formData.phone}
+🏙 <b>Город:</b> ${formData.city}
+👥 <b>Кол-во человек:</b> ${formData.people}
+🛁 <b>Модель:</b> ${formData.model}
+💬 <b>Комментарий:</b> ${formData.comment}
+            `.trim();
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    if (formSuccess) formSuccess.classList.add('active');
+                    form.reset();
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    if (formSuccess) {
+                        setTimeout(() => formSuccess.classList.remove('active'), 5000);
+                    }
+                } else {
+                    throw new Error('Telegram API error');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка отправки:', error);
+                alert('Не удалось отправить заявку. Пожалуйста, позвоните нам напрямую.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 
     // ========================================
-    // LAZY LOAD MAP (по клику)
+    // LAZY LOAD MAP
     // ========================================
     const mapPlaceholder = document.getElementById('mapPlaceholder');
     const mapContainer = document.getElementById('mapContainer');
     const loadMapBtn = document.getElementById('loadMapBtn');
 
-    if (loadMapBtn) {
+    if (loadMapBtn && mapPlaceholder) {
         loadMapBtn.addEventListener('click', function () {
             const iframe = document.createElement('iframe');
             iframe.src = 'https://yandex.ru/map-widget/v1/?ll=43.4731%2C56.5133&z=14&pt=43.4731%2C56.5133%2Cpm2rdm';
@@ -316,4 +384,4 @@
         });
     }
 
-})(); // <--- ЭТО САМЫЕ ПОСЛЕДНИЕ СИМВОЛЫ В ФАЙЛЕ
+})();
